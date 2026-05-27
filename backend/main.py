@@ -42,9 +42,15 @@ async def preload_transcriber_model() -> None:
     except Exception:
         logger.exception("transcriber.preload_failed")
 
+ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://localhost:5173",
+    os.getenv("FRONTEND_URL", "https://clean-speak-tau.vercel.app/"),
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
